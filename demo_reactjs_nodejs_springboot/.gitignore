@@ -1,0 +1,21 @@
+# General
+.idea
+.DS_Store
+
+# Backend Core
+backend_core/build/
+backend_core/.gradle/
+backend_core/out/
+
+# Backend Gateway
+backend_gateway/node_modules/
+backend_gateway/npm-debug.log
+
+# Frontend Web
+frontend_web/node_modules/
+frontend_web/build/
+frontend_web/npm-debug.log
+frontend_web/.env.local
+frontend_web/.env.development.local
+frontend_web/.env.test.local
+frontend_web/.env.production.local
