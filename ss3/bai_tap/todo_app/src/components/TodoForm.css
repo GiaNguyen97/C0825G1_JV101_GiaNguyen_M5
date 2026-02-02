@@ -1,0 +1,51 @@
+.input-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 2rem;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus {
+    border-color: #646cff;
+}
+
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+.btn-add {
+    background-color: #646cff;
+    color: white;
+}
+
+.btn-add:hover {
+    background-color: #535bf2;
+}
+
+.btn-update {
+    background-color: #f59e0b;
+    color: white;
+}
+
+.btn-update:hover {
+    background-color: #d97706;
+}
