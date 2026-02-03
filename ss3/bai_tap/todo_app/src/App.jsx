@@ -1,65 +1,85 @@
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import './App.css';
 import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
 
-function App() {
-  const [list, setList] = useState([]);
-  const [item, setItem] = useState("");
-  const [editIndex, setEditIndex] = useState(-1);
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      list: [],
+      event: "",
+      editByIndex: -1
+    };
+  }
 
-  const handleChange = (event) => {
-    setItem(event.target.value);
+  handleChange = (eventName) => {
+    this.setState({ event: eventName.target.value });
   };
 
-  const handleAddItem = () => {
-    if (item.trim() !== "") {
-      setList([...list, item]);
-      setItem("");
+  handleAddEvent = () => {
+    const { event, list } = this.state;
+    if (event.trim() !== "") {
+      this.setState({
+        list: [...list, event],
+        event: ""
+      });
     }
   };
 
-  const handleDelete = (index) => {
-    const newList = list.filter((item, i) => i !== index);
-    setList(newList);
-    if (editIndex === index) {
-      setEditIndex(-1);
-      setItem("");
+  handleDelete = (index) => {
+    const { list, editByIndex } = this.state;
+    const newList = list.filter((eventName, i) => i !== index);
+    this.setState({ list: newList });
+    if (editByIndex === index) {
+      this.setState({
+        editByIndex: -1,
+        event: ""
+      });
     }
   };
 
-  const handleEdit = (index) => {
-    setItem(list[index]);
-    setEditIndex(index);
+  handleEdit = (index) => {
+    const { list } = this.state;
+    this.setState({
+      event: list[index],
+      editByIndex: index
+    });
   };
 
-  const handleUpdate = () => {
-    if (item.trim() !== "" && editIndex !== -1) {
+  handleUpdate = () => {
+    const { event, editByIndex, list } = this.state;
+    if (event.trim() !== "" && editByIndex !== -1) {
       const newList = [...list];
-      newList[editIndex] = item;
-      setList(newList);
-      setItem("");
-      setEditIndex(-1);
+      newList[editByIndex] = event;
+      this.setState({
+        list: newList,
+        event: "",
+        editByIndex: -1
+      });
     }
   };
 
-  return (
-    <div className="container">
-      <h1>Todo List</h1>
-      <TodoForm
-        item={item}
-        handleChange={handleChange}
-        handleAddItem={handleAddItem}
-        handleUpdate={handleUpdate}
-        isEditing={editIndex !== -1}
-      />
-      <TodoList
-        list={list}
-        handleEdit={handleEdit}
-        handleDelete={handleDelete}
-      />
-    </div>
-  );
+  render() {
+    const { list, event, editByIndex } = this.state;
+    return (
+      <div className="container">
+        <h1>Todo List</h1>
+        <TodoForm
+          item={event}
+          handleChange={this.handleChange}
+          handleAddItem={this.handleAddEvent}
+          handleUpdate={this.handleUpdate}
+          isEditing={editByIndex !== -1}
+        />
+        <TodoList
+          list={list}
+          handleEdit={this.handleEdit}
+          handleDelete={this.handleDelete}
+        />
+      </div>
+    );
+  }
 }
 
 export default App;
