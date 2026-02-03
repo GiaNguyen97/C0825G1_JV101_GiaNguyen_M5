@@ -1,5 +1,5 @@
 import useIncrement from "../hook_custom/useIncrement.jsx";
-import { CounterStyles } from "../design_system/styles.js";
+import { CounterStyles } from "../style/styles.js";
 
 function Counter({ addAmount, label }) {
     const [count, increase] = useIncrement(addAmount);

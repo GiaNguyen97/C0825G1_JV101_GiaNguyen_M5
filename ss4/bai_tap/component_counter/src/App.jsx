@@ -1,6 +1,6 @@
 import './App.css'
 import Counter from "./component/Counter.jsx";
-import {AppStyles} from "./design_system/styles.js";
+import {AppStyles} from "./style/styles.js";
 
 function App() {
     return (
