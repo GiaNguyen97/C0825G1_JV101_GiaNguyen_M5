@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -6,19 +5,38 @@ import { Link } from "react-router-dom";
 import { styles } from "../styles/common";
 
 const validationSchema = Yup.object({
-    name: Yup.string().required("Vui lòng nhập tên"),
-    address: Yup.string().required("Vui lòng nhập địa chỉ"),
-    email: Yup.string().email("Email không hợp lệ").required("Vui lòng nhập email"),
-    phone: Yup.string().matches(/^[0-9]+$/, "SĐT chỉ được chứa số").min(10, "SĐT phải có ít nhất 10 số").required("Vui lòng nhập SĐT"),
-    gender: Yup.string().required("Vui lòng chọn giới tính"),
-    dob: Yup.date().required("Vui lòng chọn ngày sinh")
+    name: Yup.string()
+        .required("Vui lòng nhập tên")
+        .matches(/^[A-Za-zÀ-ỹ\s]+$/, "Tên chỉ được chứa chữ cái và khoảng trắng"),
+
+    address: Yup.string()
+        .required("Vui lòng nhập địa chỉ")
+        .min(10, "Địa chỉ quá ngắn, vui lòng nhập chi tiết"),
+
+    email: Yup.string()
+        .email("Email không hợp lệ")
+        .required("Vui lòng nhập email")
+        .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "Email không đúng định dạng"),
+
+    phone: Yup.string().matches(/^[0-9]+$/, "SĐT chỉ được chứa số")
+        .min(10, "SĐT phải có ít nhất 10 số")
+        .required("Vui lòng nhập SĐT"),
+
+    gender: Yup.string()
+        .required("Vui lòng chọn giới tính"),
+
+    dob: Yup.date()
+        .required("Vui lòng chọn ngày sinh")
+        .min(new Date(new Date().getFullYear() - 100, 0, 1), "Tuổi không được quá 100")
+        .max(new Date(new Date().getFullYear() - 6, 11, 31), "Tuổi phải từ 6 trở lên")
 });
 
 function StudentForm({ initialValues, onSubmit, title, submitLabel = "Lưu" }) {
     return (
         <div className={styles.formContainer}>
             <h1 className={styles.title}>{title}</h1>
-            <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit} enableReinitialize>
+            <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}
+                enableReinitialize>
                 <Form className="bg-white p-6 rounded shadow-md border border-gray-200">
                     <div className={styles.gridContainer}>
                         {/* Row 1: Name & Email */}
