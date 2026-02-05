@@ -1,0 +1,24 @@
+{
+  "todos": [
+    {
+      "text": "Làm bài tập React",
+      "completed": false,
+      "id": 2
+    },
+    {
+      "text": "Học Java Script",
+      "completed": false,
+      "id": 3
+    },
+    {
+      "text": "Học React",
+      "completed": false,
+      "id": 4
+    },
+    {
+      "text": "Đọc sách",
+      "completed": false,
+      "id": 5
+    }
+  ]
+}
