@@ -1,12 +1,11 @@
-
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Card, Button, ListGroup, Row, Col } from 'react-bootstrap';
+import {useLocation, useNavigate} from 'react-router-dom';
+import {Card, Button, ListGroup, Row, Col} from 'react-bootstrap';
 
 const SubmissionSuccess = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const { values } = location.state || {};
+    const {values} = location.state || {};
 
     if (!values) {
         return (
@@ -17,7 +16,6 @@ const SubmissionSuccess = () => {
         );
     }
 
-    // Helper to map values for display
     const renderValue = (val) => {
         if (typeof val === 'boolean') return val ? 'Có' : 'Không';
         if (Array.isArray(val)) return val.length > 0 ? val.join(', ') : 'Không có';
@@ -54,10 +52,8 @@ const SubmissionSuccess = () => {
                 </Card.Header>
                 <ListGroup variant="flush">
                     {Object.entries(values).map(([key, value]) => {
-                        // Only display fields we have labels for
                         if (!fieldLabels[key]) return null;
 
-                        // Handle gender label mapping
                         let displayValue = renderValue(value);
                         if (key === 'gender') {
                             displayValue = value === 'male' ? 'Nam' : 'Nữ';
