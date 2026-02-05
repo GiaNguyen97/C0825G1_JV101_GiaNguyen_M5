@@ -1,0 +1,8 @@
+/* Reseting default styles that conflict with Bootstrap */
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}

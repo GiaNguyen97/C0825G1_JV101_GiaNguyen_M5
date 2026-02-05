@@ -18,9 +18,7 @@ const validationSchema = Yup.object({
         .required("Vui lòng nhập email")
         .matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, "Email không đúng định dạng"),
 
-    phone: Yup.string().matches(/^[0-9]+$/, "SĐT chỉ được chứa số")
-        .min(10, "SĐT phải có ít nhất 10 số")
-        .required("Vui lòng nhập SĐT"),
+    phone: Yup.string().matches(/^[0-9]{10}$/, "SĐT phải đủ 10 số"),
 
     gender: Yup.string()
         .required("Vui lòng chọn giới tính"),
@@ -39,7 +37,7 @@ function StudentForm({ initialValues, onSubmit, title, submitLabel = "Lưu" }) {
                 enableReinitialize>
                 <Form className="bg-white p-6 rounded shadow-md border border-gray-200">
                     <div className={styles.gridContainer}>
-                        {/* Row 1: Name & Email */}
+
                         <div>
                             <label htmlFor="name" className={styles.label}>Họ tên</label>
                             <Field name="name" type="text" className={styles.input} />
@@ -52,7 +50,6 @@ function StudentForm({ initialValues, onSubmit, title, submitLabel = "Lưu" }) {
                             <ErrorMessage name="email" component="div" className={styles.error} />
                         </div>
 
-                        {/* Row 2: Phone & DoB */}
                         <div>
                             <label htmlFor="phone" className={styles.label}>Số điện thoại</label>
                             <Field name="phone" type="text" className={styles.input} />
@@ -65,7 +62,6 @@ function StudentForm({ initialValues, onSubmit, title, submitLabel = "Lưu" }) {
                             <ErrorMessage name="dob" component="div" className={styles.error} />
                         </div>
 
-                        {/* Row 3: Gender */}
                         <div className={styles.colFull}>
                             <label className={styles.label}>Giới tính</label>
                             <div className="flex gap-4">
@@ -81,7 +77,6 @@ function StudentForm({ initialValues, onSubmit, title, submitLabel = "Lưu" }) {
                             <ErrorMessage name="gender" component="div" className={styles.error} />
                         </div>
 
-                        {/* Row 4: Address (Bottom as requested) */}
                         <div className={styles.colFull}>
                             <label htmlFor="address" className={styles.label}>Địa chỉ</label>
                             <Field name="address" type="text" className={styles.input} />
