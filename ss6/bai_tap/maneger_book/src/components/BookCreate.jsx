@@ -1,37 +1,23 @@
-import React, { useState } from 'react';
-import { createBook } from '../services/bookService';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import React from 'react';
+import useBookCreate from "../hooks/useBookCreate.js";
 
 const BookCreate = () => {
-    const [title, setTitle] = useState('');
-    const [quantity, setQuantity] = useState('');
-    const navigate = useNavigate();
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (!title || !quantity) {
-            toast.warn("Please full fill inputs");
-            return;
-        }
-
-        try {
-            await createBook({ title, quantity: parseInt(quantity) });
-            toast.success("Create book successfully");
-            navigate('/');
-        } catch (error) {
-            toast.error("Failed to create book");
-        }
-    };
+    const {
+        title,
+        setTitle,
+        quantity,
+        setQuantity,
+        handleSubmit
+    } = useBookCreate();
 
     return (
         <div className="container">
             <div className="header">
-                <h1>Add a new Book</h1>
+                <h1>Thêm sách mới</h1>
             </div>
             <form onSubmit={handleSubmit} className="form-container">
                 <div className="form-group">
-                    <label>Title</label>
+                    <label>Tiêu đề</label>
                     <input
                         type="text"
                         value={title}
@@ -39,14 +25,14 @@ const BookCreate = () => {
                     />
                 </div>
                 <div className="form-group">
-                    <label>Quantity</label>
+                    <label>Số lượng</label>
                     <input
                         type="number"
                         value={quantity}
                         onChange={(e) => setQuantity(e.target.value)}
                     />
                 </div>
-                <button type="submit" className="btn btn-add">Add</button>
+                <button type="submit" className="btn btn-add">Thêm</button>
             </form>
         </div>
     );

@@ -10,7 +10,7 @@ const TodoApp = () => {
     const [todos, setTodos] = useState([]);
     const [task, setTask] = useState("");
     const [editingId, setEditingId] = useState(null);
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false); // Modal visibility state
     const [deleteId, setDeleteId] = useState(null);
     const [deleteName, setDeleteName] = useState("");
 
@@ -24,7 +24,7 @@ const TodoApp = () => {
             setTodos(response.data);
         } catch (error) {
             console.error("Error fetching todos:", error);
-            toast.error("Lỗi khi tải danh sách task");
+            toast.error("Lỗi khi tải danh sách sách");
         }
     };
 
@@ -53,7 +53,7 @@ const TodoApp = () => {
             setTask("");
         } catch (error) {
             console.error("Error adding todo:", error);
-            toast.error("Có lỗi xảy ra khi thêm task.");
+            toast.error("Có lỗi xảy ra khi thêm sách.");
         }
     };
 
@@ -73,7 +73,7 @@ const TodoApp = () => {
             setEditingId(null);
         } catch (error) {
             console.error("Error updating todo:", error);
-            toast.error("Có lỗi xảy ra khi cập nhật task.");
+            toast.error("Có lỗi xảy ra khi cập nhật sách.");
         }
     };
 
@@ -98,7 +98,7 @@ const TodoApp = () => {
             }
         } catch (error) {
             console.error("Error deleting todo:", error);
-            toast.error("Có lỗi xảy ra khi xóa task.");
+            toast.error("Có lỗi xảy ra khi xóa sách.");
         } finally {
             setShowDeleteModal(false);
             setDeleteId(null);
@@ -137,7 +137,7 @@ const TodoApp = () => {
                     <Modal.Title>Xác nhận xóa</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Bạn có chắc chắn muốn xóa công việc <strong>{deleteName}</strong> không? <br />
+                    Bạn có chắc chắn muốn xóa sách <strong>{deleteName}</strong> không? <br />
                     Hành động này không thể hoàn tác.
                 </Modal.Body>
                 <Modal.Footer>

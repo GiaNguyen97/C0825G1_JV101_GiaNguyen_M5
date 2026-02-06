@@ -1,52 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import { getBooks, deleteBook } from '../services/bookService';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import useBookList from '../hooks/useBookList';
+import ConfirmModal from './ConfirmModal';
 
 const BookList = () => {
-    const [books, setBooks] = useState([]);
-
-    useEffect(() => {
-        // eslint-disable-next-line react-hooks/immutability
-        loadBooks();
-    }, []);
-
-    const loadBooks = async () => {
-        try {
-            const data = await getBooks();
-            setBooks(data);
-            // eslint-disable-next-line no-unused-vars
-        } catch (error) {
-            toast.error("Failed to load books");
-        }
-    };
-
-    const handleDelete = async (id) => {
-        if (window.confirm("Are you sure you want to delete this book?")) {
-            try {
-                await deleteBook(id);
-                toast.success("Delete book successfully");
-                loadBooks();
-                // eslint-disable-next-line no-unused-vars
-            } catch (error) {
-                toast.error("Failed to delete book");
-            }
-        }
-    };
+    const {
+        books,
+        showModal,
+        selectedBook,
+        handleDeleteClick,
+        confirmDelete,
+        closeModal
+    } = useBookList();
 
     return (
         <div className="container">
             <div className="header">
-                <h1>Library</h1>
-                <Link to="/create" className="btn btn-add">Add a new Book</Link>
+                <h1>Thư viện</h1>
+                <Link to="/create" className="btn btn-add">Thêm sách mới</Link>
             </div>
             <div className="table-container">
                 <table>
                     <thead>
                         <tr>
-                            <th>Title</th>
-                            <th>Quantity</th>
-                            <th>Actions</th>
+                            <th>Tiêu đề</th>
+                            <th>Số lượng</th>
+                            <th>Hành động</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -55,14 +34,26 @@ const BookList = () => {
                                 <td>{book.title}</td>
                                 <td>{book.quantity}</td>
                                 <td>
-                                    <Link to={`/edit/${book.id}`} className="btn btn-edit">Edit</Link>
-                                    <button onClick={() => handleDelete(book.id)} className="btn btn-delete">Delete</button>
+                                    <Link to={`/edit/${book.id}`} className="btn btn-edit">Sửa</Link>
+                                    <button onClick={() => handleDeleteClick(book)} className="btn btn-delete">Xóa</button>
                                 </td>
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </div>
+
+            <ConfirmModal
+                show={showModal}
+                onHide={closeModal}
+                onConfirm={confirmDelete}
+                title="Xác nhận xóa"
+                bodyContent={
+                    <>
+                        Bạn có chắc chắn muốn xóa sách <strong>{selectedBook?.title}</strong> không?
+                    </>
+                }
+            />
         </div>
     );
 };
