@@ -1,9 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useUser } from '../hooks/useUser';
 import { Table, Button, Container, Card } from 'react-bootstrap';
+import ConfirmationModal from './ConfirmationModal';
 
 const User = () => {
     const { users, getAllUsers, removeUser } = useUser();
+    const [showModal, setShowModal] = useState(false);
+    const [selectedUser, setSelectedUser] = useState(null);
+
+    const handleShowModal = (user) => {
+        setSelectedUser(user);
+        setShowModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+        setSelectedUser(null);
+    };
+
+    const handleConfirmDelete = () => {
+        if (selectedUser) {
+            removeUser(selectedUser);
+            handleCloseModal();
+        }
+    };
 
     return (
         <Container className="mt-5">
@@ -41,7 +61,7 @@ const User = () => {
                                             <Button
                                                 variant="danger"
                                                 size="sm"
-                                                onClick={() => removeUser(user.id)}
+                                                onClick={() => handleShowModal(user)}
                                             >
                                                 Xóa
                                             </Button>
@@ -53,6 +73,16 @@ const User = () => {
                     </Table>
                 </Card.Body>
             </Card>
+
+            <ConfirmationModal
+                show={showModal}
+                handleClose={handleCloseModal}
+                handleConfirm={handleConfirmDelete}
+                title="Xác nhận xóa"
+                body= {<>
+                    Bạn có chắc chắn muốn xóa người dùng <strong>{user?.name}</strong> không?
+            </>}
+            />
         </Container>
     );
 };
